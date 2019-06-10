@@ -18,11 +18,13 @@ def setupEvents():
     # Look in file for request
     try:
         while True:
-            f = open("order.json", "r+")
+            f = open("order.json", "r")
             inhalt = json.loads(f.read())
+            f.close()
             if not inhalt["on"] and not inhalt["kill"]:
                 time.sleep(1)
                 continue
+            f = open("order.json", "w")
             if inhalt["on"]:
                 my_pc.on()
             if inhalt["kill"]:
