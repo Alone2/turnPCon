@@ -15,8 +15,8 @@ def setupEvents():
 
 class PC:
     def __init__(self, port):
-        print("New PC at port " + str(self.port))
         self.port = port
+        print("New PC at port " + str(self.port))
     
     def on(self):
         print("Started starting Computer - Port " + str(self.port))

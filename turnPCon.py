@@ -15,9 +15,9 @@ def setupEvents():
 
 class PC:
     def __init__(self, port):
-        print("New PC at port " + str(self.port))
         self.port = port
         GPIO.setup(self.port, GPIO.OUT)
+        print("New PC at port " + str(self.port))
     
     def on(self):
         print("Started starting Computer - Port " + str(self.port))
