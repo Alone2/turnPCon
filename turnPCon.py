@@ -6,6 +6,7 @@ PC_RELAY_PIN = 40
 BUTTON_PIN = 38
 
 def setupEvents():
+    GPIO.cleanup()
     # use Board numbering
     GPIO.setmode(GPIO.BOARD)
     # Port PC_RELAY_PIN is connected via relay to a PC
