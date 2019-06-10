@@ -40,19 +40,19 @@ class Button:
         self.started = 0
         
         GPIO.setup(self.port, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
-        GPIO.add_event_detect(self.port, GPIO.RISING, callback=self.rising, bouncetime=50)
+        GPIO.add_event_detect(self.port, GPIO.RISING, callback=self.rising)
     
     def rising(self, evnt):
         print("Button port " + str(self.port) + " pressed")
         self.started = time.time()
 
         GPIO.remove_event_detect(self.port)
-        GPIO.add_event_detect(self.port, GPIO.FALLING, callback=self.falling, bouncetime=50)
+        GPIO.add_event_detect(self.port, GPIO.FALLING, callback=self.falling)
 
     def falling(self, evnt):
         print("Button port " + str(self.port) + " released")
         GPIO.remove_event_detect(self.port)
-        GPIO.add_event_detect(self.port, GPIO.RISING, callback=self.rising, bouncetime=50)
+        GPIO.add_event_detect(self.port, GPIO.RISING, callback=self.rising)
 
         difference = time.time() - self.started
         self.started = 0
