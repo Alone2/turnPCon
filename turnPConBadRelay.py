@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import time
+import json
 
 # Pins defined
 PC_RELAY_PIN = 11
@@ -13,6 +14,27 @@ def setupEvents():
     my_pc = PC(PC_RELAY_PIN)
     # The button is connected to pin BUTTON_PIN
     but = Button(BUTTON_PIN, my_pc)
+    
+    # Look in file for request
+    try:
+        while True:
+            f = open("order.json", "r+")
+            inhalt = json.loads(f.read)
+            if not inhalt["on"] and not inhalt["kill"]:
+                time.sleep(1)
+                continue
+            if inhalt["on"]:
+                my_pc.on()
+            if inhalt["kill"]:
+                my_pc.kill()
+            
+            new_inhalt = '{"on": false, "kill": false}'
+            f.write(new_inhalt)
+            f.close()
+            
+    except KeyboardInterrupt:
+        GPIO.cleanup()
+        print("GPIO cleanup done")
 
 class PC:
     def __init__(self, port):
@@ -64,10 +86,3 @@ class Button:
 
 if __name__ == "__main__":
     setupEvents()
-    
-    try:
-        while True:
-            pass
-    except KeyboardInterrupt:
-        GPIO.cleanup()
-        print("GPIO cleanup done")
