@@ -19,7 +19,7 @@ def setupEvents():
     try:
         while True:
             f = open("order.json", "r+")
-            inhalt = json.loads(f.read)
+            inhalt = json.loads(f.read())
             if not inhalt["on"] and not inhalt["kill"]:
                 time.sleep(1)
                 continue
