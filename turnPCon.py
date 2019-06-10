@@ -80,7 +80,8 @@ class Button:
 
         difference = time.time() - self.started
         self.started = 0
-
+        if difference < 0.06:
+            return
         if difference > 5:
             self.pc.kill()
             return
