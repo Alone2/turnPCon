@@ -35,27 +35,37 @@ def setupEvents():
             
     except KeyboardInterrupt:
         GPIO.cleanup()
-        print("GPIO cleanup done")
+        output.put("GPIO cleanup done")
+
+class output:
+    @staticmethod
+    def put(msg):
+        t = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
+        msg = "[" + t + "] " + msg
+        print(msg)
+        f = open("pcON.log", "r+")
+        f.write(msg)
+        f.close()
 
 class PC:
     def __init__(self, port):
         self.port = port
         GPIO.setup(self.port, GPIO.OUT)
-        print("New PC at port " + str(self.port))
+        output.put("New PC at port " + str(self.port))
     
     def on(self):
-        print("Started starting Computer - Port " + str(self.port))
+        output.put("Started starting Computer - Port " + str(self.port))
         GPIO.output(self.port, True)
         time.sleep(1)
         GPIO.output(self.port, False)
-        print("Started Computer " + str(self.port))
+        output.put("Started Computer " + str(self.port))
 
     def kill(self):
-        print("Started killing Computer - Port " + str(self.port))
+        output.put("Started killing Computer - Port " + str(self.port))
         GPIO.output(self.port, True)
         time.sleep(10)
         GPIO.output(self.port, False)
-        print("Killed Computer - Port " + str(self.port))
+        output.put("Killed Computer - Port " + str(self.port))
 
 class Button:
     def __init__(self, port, aPc):
@@ -67,14 +77,14 @@ class Button:
         GPIO.add_event_detect(self.port, GPIO.RISING, callback=self.rising)
     
     def rising(self, evnt):
-        print("Button port " + str(self.port) + " pressed")
+        output.put("Button port " + str(self.port) + " pressed")
         self.started = time.time()
 
         GPIO.remove_event_detect(self.port)
         GPIO.add_event_detect(self.port, GPIO.FALLING, callback=self.falling)
 
     def falling(self, evnt):
-        print("Button port " + str(self.port) + " released")
+        output.put("Button port " + str(self.port) + " released")
         GPIO.remove_event_detect(self.port)
         GPIO.add_event_detect(self.port, GPIO.RISING, callback=self.rising)
 
