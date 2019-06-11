@@ -84,7 +84,7 @@ class Button:
         self.port = port
         self.started = 0
         
-        GPIO.setup(self.port, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+        GPIO.setup(self.port, GPIO.IN)
         GPIO.add_event_detect(self.port, GPIO.RISING, callback=self.rising)
     
     def rising(self, evnt):
@@ -101,7 +101,7 @@ class Button:
 
         difference = time.time() - self.started
         self.started = 0
-        if difference < 0.06:
+        if difference < 0.06 or difference > 15:
             return
         if difference > 5:
             self.pc.kill()
