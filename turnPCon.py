@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 import json
+import os.path
 
 # Pins defined
 PC_RELAY_PIN = 40
@@ -44,8 +45,11 @@ class output:
         t = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
         msg = "[" + t + "] " + msg
         print(msg)
+        if os.path.isfile("pcON.log"):
+            f = open("pcON.log", "w+")
+            f.close()
         f = open("pcON.log", "r+")
-        f.write(msg)
+        f.write(f.read() + msg + "\n")
         f.close()
 
 class PC:
