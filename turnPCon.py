@@ -48,8 +48,11 @@ class output:
         if not os.path.isfile("pcON.log"):
             f = open("pcON.log", "w+")
             f.close()
-        f = open("pcON.log", "r+")
-        f.write(f.read() + msg + "\n")
+        f = open("pcON.log", "r")
+        stuff = f.read()
+        f.close()
+        f = open("pcON.log", "w")
+        f.write(stuff + msg + "\n")
         f.close()
 
 class PC:
