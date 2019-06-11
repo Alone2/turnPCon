@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import time
+import json
 
 # Pins defined
 PC_RELAY_PIN = 40
