@@ -45,7 +45,7 @@ class output:
         t = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
         msg = "[" + t + "] " + msg
         print(msg)
-        if os.path.isfile("pcON.log"):
+        if not os.path.isfile("pcON.log"):
             f = open("pcON.log", "w+")
             f.close()
         f = open("pcON.log", "r+")
