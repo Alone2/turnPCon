@@ -9,6 +9,8 @@ PC_RELAY_PIN = 11
 BUTTON_PIN = 38
 
 def setupEvents():
+    #starting
+    output.put("System starting...")
     GPIO.cleanup()
     # use Board numbering
     GPIO.setmode(GPIO.BOARD)
