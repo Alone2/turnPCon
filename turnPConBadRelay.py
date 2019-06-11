@@ -5,7 +5,7 @@ import os.path
 from datetime import datetime
 
 # Pins defined
-PC_RELAY_PIN = 40
+PC_RELAY_PIN = 11
 BUTTON_PIN = 38
 
 def setupEvents():
