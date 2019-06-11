@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 import time
 import json
 import os.path
+from datetime import datetime
 
 # Pins defined
 PC_RELAY_PIN = 11
@@ -42,7 +43,7 @@ def setupEvents():
 class output:
     @staticmethod
     def put(msg):
-        t = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
+        t = datetime.now().strftime("%Y-%m-%d--%H:%M:%S.%f")
         msg = "[" + t + "] " + msg
         print(msg)
         if not os.path.isfile("pcON.log"):
