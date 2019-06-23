@@ -34,13 +34,19 @@ def setupEvents():
             if inhalt["kill"]:
                 my_pc.kill()
             
-            new_inhalt = '{"on": false, "kill": false}'
+            new_inhalt = '{"on": false, "kill": false, "useButton": ' + inhalt["useButton"] + '}'
             f.write(new_inhalt)
             f.close()
             
     except KeyboardInterrupt:
         GPIO.cleanup()
         output.put("GPIO cleanup done")
+
+def useButton():
+    f = open("order.json", "r")
+    inhalt = json.loads(f.read())
+    f.close()
+    return inhalt["useButton"]
 
 class output:
     @staticmethod
@@ -97,7 +103,10 @@ class Button:
         output.put("Button port " + str(self.port) + " released")
         GPIO.remove_event_detect(self.port)
         GPIO.add_event_detect(self.port, GPIO.RISING, callback=self.rising)
-
+            
+        if not useButton():
+            return
+            
         difference = time.time() - self.started
         self.started = 0
         if difference < 0.06 or difference > 15:
