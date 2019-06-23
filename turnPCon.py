@@ -34,7 +34,7 @@ def setupEvents():
             if inhalt["kill"]:
                 my_pc.kill()
             
-            new_inhalt = '{"on": false, "kill": false, "useButton": ' + inhalt["useButton"] + '}'
+            new_inhalt = '{"on": false, "kill": false, "useButton": ' + str(inhalt["useButton"]).lower() + '}'
             f.write(new_inhalt)
             f.close()
             

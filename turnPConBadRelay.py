@@ -34,7 +34,7 @@ def setupEvents():
             if inhalt["kill"]:
                 my_pc.kill()
             
-            new_inhalt = '{"on": false, "kill": false, "useButton": ' + inhalt["useButton"] + '}'
+            new_inhalt = '{"on": false, "kill": false, "useButton": ' + str(inhalt["useButton"]).lower() + '}'
             f.write(new_inhalt)
             f.close()
             
@@ -106,7 +106,7 @@ class Button:
             
         if not useButton():
             return
-            
+
         difference = time.time() - self.started
         self.started = 0
         if difference < 0.06 or difference > 15:
